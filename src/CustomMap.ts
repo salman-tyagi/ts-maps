@@ -1,6 +1,5 @@
-// import User from './User';
-// import Company from './Company';
-
+// Instructions to every other class
+// on how they can be an argument to 'addMarker'
 interface Mappable {
   location: {
     lat: number;
@@ -9,10 +8,10 @@ interface Mappable {
 }
 
 class CustomMap {
-  googleMap: google.maps.Map;
+  #googleMap: google.maps.Map;
 
   constructor(divID: string) {
-    this.googleMap = new google.maps.Map(
+    this.#googleMap = new google.maps.Map(
       document.getElementById(divID) as HTMLElement,
       {
         zoom: 1,
@@ -24,47 +23,26 @@ class CustomMap {
     );
   }
 
-  //   NOT WORKING
-  //   renderUserMarker(user: User): void {
-  //     new google.maps.marker.AdvancedMarkerElement({
-  //       map: this.googleMap,
-  //       position: {
-  //         lat: user.location.lat,
-  //         lng: user.location.lng,
-  //       },
-  //     });
-  //   }
-
-  /* BAD CODE
-  renderUserMarker(user: User): void {
-    new google.maps.Marker({
-      map: this.googleMap,
-      position: {
-        lat: user.location.lat,
-        lng: user.location.lng,
-      },
-    });
-  }
-
-  renderCompanyMarker(company: Company) {
-    new google.maps.Marker({
-      map: this.googleMap,
-      position: {
-        lat: company.location.lat,
-        lng: company.location.lng,
-      },
-    });
-  }
-  */
-
   addMarker(mappable: Mappable): void {
-    new google.maps.Marker({
-      map: this.googleMap,
+    const marker = new google.maps.Marker({
+      map: this.#googleMap,
       position: {
         lat: mappable.location.lat,
         lng: mappable.location.lng,
       },
     });
+
+    marker.addListener('click', () => {
+      const infoWindow = new google.maps.InfoWindow({
+        content: this.infoWindowContent(),
+      });
+
+      infoWindow.open(this.#googleMap, marker);
+    });
+  }
+
+  infoWindowContent(): string {
+    return `<div>Hello World!<div>`;
   }
 }
 
