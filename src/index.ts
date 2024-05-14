@@ -1,1 +1,1 @@
-console.log('Inital commit');
+console.log('Hello TypeScript');
