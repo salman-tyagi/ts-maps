@@ -1,0 +1,16 @@
+{
+    "name": "ts-maps",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "parcel index.html"
+    },
+    "author": "Salman Tyagi",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+        "parcel-bundler": "^1.12.5",
+        "typescript": "^5.4.5"
+    }
+}
