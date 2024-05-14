@@ -1,5 +1,12 @@
-import User from './User';
-import Company from './Company';
+// import User from './User';
+// import Company from './Company';
+
+interface Mappable {
+  location: {
+    lat: number;
+    lng: number;
+  };
+}
 
 class CustomMap {
   googleMap: google.maps.Map;
@@ -50,12 +57,12 @@ class CustomMap {
   }
   */
 
-  addMarker(obj: User | Company): void {
+  addMarker(mappable: Mappable): void {
     new google.maps.Marker({
       map: this.googleMap,
       position: {
-        lat: obj.location.lat,
-        lng: obj.location.lng,
+        lat: mappable.location.lat,
+        lng: mappable.location.lng,
       },
     });
   }
