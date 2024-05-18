@@ -1,11 +1,13 @@
 import { faker } from '@faker-js/faker';
+import { Mappable } from './CustomMap';
 
-class User {
+class User implements Mappable {
   name: string;
   location: {
     lat: number;
     lng: number;
   };
+  color: string;
 
   constructor() {
     this.name = faker.person.firstName();
@@ -13,6 +15,10 @@ class User {
       lat: faker.location.latitude(),
       lng: faker.location.longitude(),
     };
+  }
+
+  markerContent(): string {
+    return 'Info Content!';
   }
 }
 
