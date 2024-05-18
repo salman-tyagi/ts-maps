@@ -1,17 +1,19 @@
 // Instructions to every other class
 // on how they can be an argument to 'addMarker'
-interface Mappable {
+export interface Mappable {
   location: {
     lat: number;
     lng: number;
   };
+  markerContent(): string;
+  color: string;
 }
 
 class CustomMap {
-  #googleMap: google.maps.Map;
+  private googleMap: google.maps.Map;
 
   constructor(divID: string) {
-    this.#googleMap = new google.maps.Map(
+    this.googleMap = new google.maps.Map(
       document.getElementById(divID) as HTMLElement,
       {
         zoom: 1,
@@ -25,7 +27,7 @@ class CustomMap {
 
   addMarker(mappable: Mappable): void {
     const marker = new google.maps.Marker({
-      map: this.#googleMap,
+      map: this.googleMap,
       position: {
         lat: mappable.location.lat,
         lng: mappable.location.lng,
@@ -34,15 +36,11 @@ class CustomMap {
 
     marker.addListener('click', () => {
       const infoWindow = new google.maps.InfoWindow({
-        content: this.infoWindowContent(),
+        content: mappable.markerContent(),
       });
 
-      infoWindow.open(this.#googleMap, marker);
+      infoWindow.open(this.googleMap, marker);
     });
-  }
-
-  infoWindowContent(): string {
-    return `<div>Hello World!<div>`;
   }
 }
 
